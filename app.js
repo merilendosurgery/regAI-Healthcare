@@ -10,23 +10,37 @@ document.addEventListener('DOMContentLoaded', function () {
         checkAuthentication();
     }
 
-    if (document.getElementById('viewHistory')) {
-        document.getElementById('viewHistory').addEventListener('click', function () {
+    const viewHistoryButton = document.getElementById('viewHistory');
+    const historyModal = document.getElementById('historyModal');
+    const closeButton = document.getElementsByClassName('close')[0];
+
+    if (viewHistoryButton) {
+        viewHistoryButton.addEventListener('click', function () {
             viewHistory();
-            document.getElementById('historyModal').style.display = "block";
+            historyModal.style.display = "block";
         });
     }
 
-    if (document.getElementsByClassName('close')[0]) {
-        document.getElementsByClassName('close')[0].addEventListener('click', function () {
-            document.getElementById('historyModal').style.display = "none";
+    if (closeButton) {
+        closeButton.addEventListener('click', function () {
+            historyModal.style.display = "none";
         });
     }
 
     window.onclick = function(event) {
-        if (event.target == document.getElementById('historyModal')) {
-            document.getElementById('historyModal').style.display = "none";
+        if (event.target == historyModal) {
+            historyModal.style.display = "none";
         }
+    }
+
+    // Example to capture chatbot interactions
+    const chatbotIframe = document.getElementById('chatbotIframe');
+    if (chatbotIframe) {
+        window.addEventListener('message', function (event) {
+            if (event.origin === 'https://www.chatbase.co') { // Verify the origin
+                saveChatHistory(event.data.query, event.data.response);
+            }
+        });
     }
 });
 
@@ -49,6 +63,7 @@ function login() {
         localStorage.setItem('authenticated', 'true');
         localStorage.setItem('authToken', token);
         localStorage.setItem('authTime', Date.now());
+        localStorage.setItem('username', username);
         window.location.href = 'chatbot.html';
     } else {
         alert('Incorrect username or password');
@@ -66,21 +81,32 @@ function checkAuthentication() {
         localStorage.removeItem('authenticated');
         localStorage.removeItem('authToken');
         localStorage.removeItem('authTime');
+        localStorage.removeItem('username');
         window.location.href = 'index.html';
     }
 }
 
 function saveChatHistory(query, response) {
-    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-    chatHistory.push({ query: query, response: response });
+    let username = localStorage.getItem('username');
+    if (!username) return;
+    
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || {};
+    if (!chatHistory[username]) {
+        chatHistory[username] = [];
+    }
+    chatHistory[username].push({ query: query, response: response });
     localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 }
 
 function viewHistory() {
-    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    let username = localStorage.getItem('username');
+    if (!username) return;
+
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || {};
+    let userHistory = chatHistory[username] || [];
     let historyContainer = document.getElementById('historyContainer');
     historyContainer.innerHTML = '';
-    chatHistory.forEach(chat => {
+    userHistory.forEach(chat => {
         let chatEntry = document.createElement('div');
         chatEntry.classList.add('chat-entry');
         chatEntry.innerHTML = `<strong>Query:</strong> ${chat.query}<br><strong>Response:</strong> ${chat.response}`;
