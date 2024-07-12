@@ -26,6 +26,7 @@ function login() {
 
     if ((username === 'rahul.fidai' && password === 'Rahul@1969') || 
         (username === 'umesh.sharma' && password === 'Meril@123') ||
+        (username === 'ritesh.shah' && password === 'Meril@123') ||
         (username === 'jatin.bhatt' && password === 'Meril@123')) {
         var token = generateToken(16);
         localStorage.setItem('authenticated', 'true');
