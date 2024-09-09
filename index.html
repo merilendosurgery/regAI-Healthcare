@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>regAI - A regulatory Intelligence Bot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myRI - A Regulatory Intelligence Bot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,15 +23,11 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 320px; /* Increased width for larger logos */
+            width: 320px;
             color: #333;
         }
-        .meril-logo {
-            width: 150px; /* Increased size for the top logo */
-            margin-bottom: 20px;
-        }
-        .regai-logo {
-            width: 280px; /* Increased size for the regAI logo */
+        .meril-logo, .regai-logo {
+            width: 150px; /* Set both logos to the same size */
             margin-bottom: 20px;
         }
         .login-container h2 {
@@ -61,7 +59,7 @@
             bottom: 10px;
             right: 10px;
             font-size: 14px;
-            color: #00008b; /* Dark Blue */
+            color: #00008b;
         }
     </style>
 </head>
@@ -69,7 +67,7 @@
 
 <div class="login-container">
     <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="meril-logo">
-    <img src="myRI.png" alt="myRI Logo" class="myRI-logo">
+    <img src="myRI.png" alt="myRI Logo" class="regai-logo">
     <h2>Please Login to Continue</h2>
     <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required>
