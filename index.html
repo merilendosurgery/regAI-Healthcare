@@ -23,6 +23,16 @@
             width: 320px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 10px;
+        }
         input {
             width: calc(100% - 20px);
             padding: 10px;
@@ -38,15 +48,16 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px; /* Space between buttons */
+            margin-bottom: 15px; /* Space between login and secondary buttons */
         }
         button:hover {
             background-color: #0056b3;
         }
         .secondary-buttons {
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px; /* Space between login button and secondary buttons */
+            justify-content: center; /* Align buttons in the center */
+            gap: 10px; /* Space between the two buttons */
+            margin-top: 20px; /* Space above the buttons */
         }
         .secondary-buttons a {
             text-decoration: none;
@@ -57,8 +68,7 @@
             cursor: pointer;
             font-size: 14px;
             text-align: center;
-            flex: 1; /* Make buttons equal width */
-            margin: 0 5px; /* Space between the two buttons */
+            flex: 1; /* Make buttons consistent in width */
         }
         .secondary-buttons a:hover {
             background-color: #66b2d9; /* Slightly darker sky blue */
@@ -67,6 +77,10 @@
 </head>
 <body>
 <div class="container">
+    <div class="logo-container">
+        <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="logo">
+        <img src="myRI.png" alt="myRI Logo" class="logo">
+    </div>
     <h2>Login</h2>
     <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required>
