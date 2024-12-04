@@ -104,8 +104,19 @@
         const users = JSON.parse(localStorage.getItem('users')) || {};
 
         if (users[username] && users[username] === password) {
-            alert('Login successful!');
-            window.location.href = 'chatbot.html';
+            if (username === "rahul.fidai") {
+                // Admin-specific options
+                const choice = confirm("Do you want to go to the Admin Page? Click 'OK' for Admin Page, 'Cancel' for Chatbot.");
+                if (choice) {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'chatbot.html';
+                }
+            } else {
+                // Non-admin users go directly to chatbot
+                alert('Login successful!');
+                window.location.href = 'chatbot.html';
+            }
         } else {
             alert('Invalid username or password');
         }
