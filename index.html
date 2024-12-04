@@ -84,16 +84,16 @@
     <a href="reset-password.html" class="reset-password">Reset Password</a>
 </div>
 <script>
-    // Pre-set user credentials in localStorage (if not already set)
+    // Initialize default users in localStorage if not already set
     if (!localStorage.getItem('users')) {
-        const users = {
+        const defaultUsers = {
             "rahul.fidai": "Meril@123",
             "bittu.jha": "Meril@123",
             "umesh.sharma": "Meril@123",
             "neha.patel": "Meril@123",
             "ra.hc": "Meril@123"
         };
-        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(defaultUsers));
     }
 
     document.getElementById('loginForm').addEventListener('submit', function (event) {
