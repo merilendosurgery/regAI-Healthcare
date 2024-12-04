@@ -42,17 +42,25 @@
         button:hover {
             background-color: #0056b3;
         }
+        .logo-container {
+            display: flex;
+            flex-direction: column; /* Ensures logos are stacked vertically */
+            align-items: center; /* Center align the logos */
+            margin-bottom: 20px;
+        }
         .logo {
             width: 150px;
-            margin-bottom: 10px;
+            margin: 10px 0; /* Space between logos */
         }
     </style>
 </head>
 <body>
 <div class="container">
     <!-- Logos -->
-    <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="logo">
-    <img src="myRI.png" alt="myRI Logo" class="logo">
+    <div class="logo-container">
+        <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="logo">
+        <img src="myRI.png" alt="myRI Logo" class="logo">
+    </div>
 
     <!-- Login Form -->
     <h2>Login</h2>
