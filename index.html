@@ -48,30 +48,24 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 15px; /* Space between login and secondary buttons */
+            margin-bottom: 15px;
         }
         button:hover {
             background-color: #0056b3;
         }
-        .secondary-buttons {
-            display: flex;
-            justify-content: center; /* Align buttons in the center */
-            gap: 10px; /* Space between the two buttons */
-            margin-top: 20px; /* Space above the buttons */
-        }
-        .secondary-buttons a {
+        .reset-password {
+            display: block;
             text-decoration: none;
-            background-color: #87ceeb; /* Sky blue color */
-            color: #fff; /* White text */
+            background-color: #87ceeb;
+            color: #fff;
             padding: 10px 20px;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 14px;
             text-align: center;
-            flex: 1; /* Make buttons consistent in width */
+            margin-top: 10px;
         }
-        .secondary-buttons a:hover {
-            background-color: #66b2d9; /* Slightly darker sky blue */
+        .reset-password:hover {
+            background-color: #66b2d9;
         }
     </style>
 </head>
@@ -87,32 +81,22 @@
         <input type="password" id="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
-    <div class="secondary-buttons">
-        <a href="register.html">Register</a>
-        <a href="forgot-password.html">Forgot Password?</a>
-    </div>
+    <a href="reset-password.html" class="reset-password">Reset Password</a>
 </div>
 <script>
+    // Pre-created IDs and passwords
+    const users = {
+        "neha.patel": "Meril@123",
+        "umesh.sharma": "Meril@123"
+    };
+
     document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-        const adminCredentials = { username: 'rahul.fidai', password: 'Rahul1969' };
-
-        // Check admin login
-        if (username === adminCredentials.username && password === adminCredentials.password) {
-            alert('Admin login successful!');
-            localStorage.setItem('authenticated', 'admin');
-            window.location.href = 'admin.html';
-            return;
-        }
-
-        // Check user login
         if (users[username] && users[username] === password) {
             alert('Login successful!');
-            localStorage.setItem('authenticated', 'user');
             window.location.href = 'chatbot.html';
         } else {
             alert('Invalid username or password');
