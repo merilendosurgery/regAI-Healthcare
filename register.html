@@ -26,8 +26,8 @@
             return;
         }
 
-        const timestamp = new Date().toLocaleString(); // Capture the current date and time
-        users[username] = password; // Store the plain text password
+        const timestamp = new Date().toLocaleString(); // Store the timestamp of creation
+        users[username] = password; // Store password as plain text
         timestamps[username] = timestamp; // Store the creation timestamp
 
         localStorage.setItem('users', JSON.stringify(users));
