@@ -44,25 +44,22 @@
         }
         .logo-container {
             display: flex;
-            flex-direction: column; /* Ensures logos are stacked vertically */
-            align-items: center; /* Center align the logos */
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 20px;
         }
         .logo {
             width: 150px;
-            margin: 10px 0; /* Space between logos */
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Logos -->
     <div class="logo-container">
         <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="logo">
         <img src="myRI.png" alt="myRI Logo" class="logo">
     </div>
-
-    <!-- Login Form -->
     <h2>Login</h2>
     <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required>
@@ -78,9 +75,20 @@
         const password = document.getElementById('password').value;
 
         const users = JSON.parse(localStorage.getItem('users')) || {};
+        const adminCredentials = { username: 'rahul.fidai', password: 'Rahul1969' };
+
+        // Check admin login
+        if (username === adminCredentials.username && password === adminCredentials.password) {
+            alert('Admin login successful!');
+            localStorage.setItem('authenticated', 'admin');
+            window.location.href = 'admin.html';
+            return;
+        }
+
+        // Check user login
         if (users[username] && atob(users[username]) === password) {
             alert('Login successful!');
-            localStorage.setItem('authenticated', 'true');
+            localStorage.setItem('authenticated', 'user');
             window.location.href = 'chatbot.html';
         } else {
             alert('Invalid username or password');
