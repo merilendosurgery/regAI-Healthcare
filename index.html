@@ -84,19 +84,24 @@
     <a href="reset-password.html" class="reset-password">Reset Password</a>
 </div>
 <script>
-    // Pre-created IDs and passwords
-    const users = {
-        "rahul.fidai": "Meril@123",
-        "bittu.jha": "Meril@123",
-        "umesh.sharma": "Meril@123",
-        "neha.patel": "Meril@123",
-        "ra.hc": "Meril@123"
-    };
+    // Pre-set user credentials in localStorage (if not already set)
+    if (!localStorage.getItem('users')) {
+        const users = {
+            "rahul.fidai": "Meril@123",
+            "bittu.jha": "Meril@123",
+            "umesh.sharma": "Meril@123",
+            "neha.patel": "Meril@123",
+            "ra.hc": "Meril@123"
+        };
+        localStorage.setItem('users', JSON.stringify(users));
+    }
 
     document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+
+        const users = JSON.parse(localStorage.getItem('users')) || {};
 
         if (users[username] && users[username] === password) {
             alert('Login successful!');
