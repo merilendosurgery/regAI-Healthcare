@@ -38,35 +38,45 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 15px; /* Space between buttons */
         }
         button:hover {
             background-color: #0056b3;
         }
-        .logo-container {
+        .secondary-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            margin-top: 20px; /* Space between login button and secondary buttons */
         }
-        .logo {
-            width: 150px;
-            margin-bottom: 10px;
+        .secondary-buttons a {
+            text-decoration: none;
+            background-color: #87ceeb; /* Sky blue color */
+            color: #fff; /* White text */
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            flex: 1; /* Make buttons equal width */
+            margin: 0 5px; /* Space between the two buttons */
+        }
+        .secondary-buttons a:hover {
+            background-color: #66b2d9; /* Slightly darker sky blue */
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="logo-container">
-        <img src="Meril Healthcare.png" alt="Meril Healthcare Logo" class="logo">
-        <img src="myRI.png" alt="myRI Logo" class="logo">
-    </div>
     <h2>Login</h2>
     <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required>
         <input type="password" id="password" placeholder="Password" required>
         <button type="submit">Login</button>
     </form>
-    <a href="register.html">Register</a> | <a href="forgot-password.html">Forgot Password?</a>
+    <div class="secondary-buttons">
+        <a href="register.html">Register</a>
+        <a href="forgot-password.html">Forgot Password?</a>
+    </div>
 </div>
 <script>
     document.getElementById('loginForm').addEventListener('submit', function (event) {
@@ -86,7 +96,7 @@
         }
 
         // Check user login
-        if (users[username] && atob(users[username]) === password) {
+        if (users[username] && users[username] === password) {
             alert('Login successful!');
             localStorage.setItem('authenticated', 'user');
             window.location.href = 'chatbot.html';
