@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Admin Panel - Manage Users</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+</div>
+<script>
+    // Ensure only the admin can access this page
+    const authenticated = localStorage.getItem('authenticated');
+    if (authenticated !== 'admin') {
+        alert('Access denied! Redirecting to login...');
+        window.location.href = 'index.html';
+    }
+
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+    const userTable = document.getElementById('userTable');
+
+    function renderUsers() {
+        userTable.innerHTML = ''; // Clear the table
+        Object.keys(users).forEach(username => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${username}</td>
+                <td><button onclick="deleteUser('${username}')">Delete</button></td>
+            `;
+            userTable.appendChild(row);
+        });
+    }
+
+    function deleteUser(username) {
+        delete users[username];
+        localStorage.setItem('users', JSON.stringify(users));
+        alert(`User '${username}' deleted.`);
+        renderUsers();
+    }
+
+    renderUsers();
+</script>
+</body>
+</html>
