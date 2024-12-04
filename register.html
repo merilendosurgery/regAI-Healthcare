@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <title>Register</title>
+    <style>
+        /* Same styling as index.html for consistency */
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Create an Account</h2>
+    <form id="registerForm">
+        <input type="text" id="newUsername" placeholder="Username" required>
+        <input type="password" id="newPassword" placeholder="Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
+    </form>
+</div>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        registerUser();
+    });
+
+    function registerUser() {
+        var username = document.getElementById('newUsername').value;
+        var password = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        var users = JSON.parse(localStorage.getItem('users')) || {};
+        if (users[username]) {
+            alert('Username already exists');
+            return;
+        }
+
+        users[username] = btoa(password); // Base64 encode for simple security
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Registration successful!');
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>
