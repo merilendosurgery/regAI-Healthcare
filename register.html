@@ -26,9 +26,9 @@
             return;
         }
 
-        const timestamp = new Date().toLocaleString(); // Store the creation timestamp
-        users[username] = btoa(password); // Encode the password
-        timestamps[username] = timestamp;
+        const timestamp = new Date().toLocaleString(); // Capture the current date and time
+        users[username] = password; // Store the plain text password
+        timestamps[username] = timestamp; // Store the creation timestamp
 
         localStorage.setItem('users', JSON.stringify(users));
         localStorage.setItem('timestamps', JSON.stringify(timestamps));
