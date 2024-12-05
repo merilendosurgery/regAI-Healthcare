@@ -67,32 +67,9 @@
         <tbody id="userTable"></tbody>
     </table>
 </div>
+<script src="app.js"></script>
 <script>
-    const users = JSON.parse(localStorage.getItem('users')) || {};
-    const userTable = document.getElementById('userTable');
-    const totalIds = document.getElementById('totalIds');
-
-    function renderUsers() {
-        userTable.innerHTML = ''; // Clear table
-        totalIds.textContent = Object.keys(users).length; // Update total count
-
-        Object.keys(users).forEach(username => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${username}</td>
-                <td><button onclick="deleteUser('${username}')">Delete</button></td>
-            `;
-            userTable.appendChild(row);
-        });
-    }
-
-    function deleteUser(username) {
-        delete users[username];
-        localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
-        renderUsers(); // Re-render table
-    }
-
-    renderUsers();
+    renderAdminDashboard();
 </script>
 </body>
 </html>
