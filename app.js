@@ -21,31 +21,42 @@ function generateToken(length) {
 }
 
 function login() {
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-    if ((username === 'rahul.fidai' && password === 'Rahul@1969') || 
-        (username === 'umesh.sharma' && password === 'Meril@123') ||
-        (username === 'ritesh.shah' && password === 'Meril@123') ||
-        (username === 'bittu.jha' && password === 'Meril@123') ||
-        (username === 'jatin.bhatt' && password === 'Meril@123')) {
-        var token = generateToken(16);
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+
+    if (users[username] && users[username] === password) {
+        const token = generateToken(16);
         localStorage.setItem('authenticated', 'true');
         localStorage.setItem('authToken', token);
         localStorage.setItem('authTime', Date.now());
         localStorage.setItem('username', username);
-        window.location.href = 'chatbot.html';
+
+        if (username === 'rahul.fidai') {
+            // Admin-specific options
+            const choice = confirm("Do you want to go to the Admin Page? Click 'OK' for Admin Page, 'Cancel' for Chatbot.");
+            if (choice) {
+                window.location.href = 'admin.html';
+            } else {
+                window.location.href = 'chatbot.html';
+            }
+        } else {
+            // Regular users go directly to chatbot
+            alert('Login successful!');
+            window.location.href = 'chatbot.html';
+        }
     } else {
         alert('Incorrect username or password');
     }
 }
 
 function checkAuthentication() {
-    var isAuthenticated = localStorage.getItem('authenticated') === 'true';
-    var authToken = localStorage.getItem('authToken');
-    var authTime = parseInt(localStorage.getItem('authTime'), 10);
-    var currentTime = Date.now();
-    var sessionDuration = 30 * 60 * 1000; // 30 minutes
+    const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+    const authToken = localStorage.getItem('authToken');
+    const authTime = parseInt(localStorage.getItem('authTime'), 10);
+    const currentTime = Date.now();
+    const sessionDuration = 30 * 60 * 1000; // 30 minutes
 
     if (!isAuthenticated || !authToken || currentTime - authTime > sessionDuration) {
         localStorage.removeItem('authenticated');
@@ -53,5 +64,12 @@ function checkAuthentication() {
         localStorage.removeItem('authTime');
         localStorage.removeItem('username');
         window.location.href = 'index.html';
+    } else {
+        const username = localStorage.getItem('username');
+        if (username === 'rahul.fidai' && window.location.pathname !== '/admin.html') {
+            window.location.href = 'admin.html';
+        } else if (window.location.pathname !== '/chatbot.html') {
+            window.location.href = 'chatbot.html';
+        }
     }
 }
