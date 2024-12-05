@@ -83,46 +83,6 @@
     </form>
     <a href="reset-password.html" class="reset-password">Reset Password</a>
 </div>
-<script>
-    // Initialize default users in localStorage if not already set
-    if (!localStorage.getItem('users')) {
-        const defaultUsers = {
-            "rahul.fidai": "Meril@123",
-            "bittu.jha": "Meril@123",
-            "umesh.sharma": "Meril@123",
-            "neha.patel": "Meril@123",
-            "ra.hc": "Meril@123",
-            "nirmal.mistry": "Meril@123",
-            "jatin.bhatt": "Meril@123"
-        };
-        localStorage.setItem('users', JSON.stringify(defaultUsers));
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-
-        if (users[username] && users[username] === password) {
-            if (username === "rahul.fidai") {
-                // Admin-specific options
-                const choice = confirm("Do you want to go to the Admin Page? Click 'OK' for Admin Page, 'Cancel' for Chatbot.");
-                if (choice) {
-                    window.location.href = 'admin.html';
-                } else {
-                    window.location.href = 'chatbot.html';
-                }
-            } else {
-                // Non-admin users go directly to chatbot
-                alert('Login successful!');
-                window.location.href = 'chatbot.html';
-            }
-        } else {
-            alert('Invalid username or password');
-        }
-    });
-</script>
+<script src="app.js"></script>
 </body>
 </html>
